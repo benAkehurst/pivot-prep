@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+.perspective {
+  perspective: 2000px; /* Increased perspective for more dramatic effect */
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Enhanced flip animation classes */
+.card-flip-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition-property: transform;
+  transition-duration: 1200ms; /* Slowed down animation */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid;
+  overflow-y: auto;
+}
+
+.card-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+  border-color: rgba(229, 231, 235, 1);
+}
+
+.dark .card-front {
+  border-color: rgba(55, 65, 81, 1);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  border-color: rgba(229, 231, 235, 1);
+}
+
+.dark .card-back {
+  border-color: rgba(55, 65, 81, 1);
+}
+
+.card-flip-container.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Add some depth to the card during animation */
+.card-flip-container:not(.flipped):hover {
+  transform: rotateY(5deg);
+  transition-duration: 300ms;
+}
+
+.card-flip-container.flipped:hover {
+  transform: rotateY(175deg);
+  transition-duration: 300ms;
+}
+
+/* Enhance card shadows based on flip state */
+.card-front {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-back {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-flip-container.flipped .card-front {
+  box-shadow: none;
+}
+
+.card-flip-container:not(.flipped) .card-back {
+  box-shadow: none;
+}
+
+/* Add card content styles */
+.card-content {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .card-content {
+  background-color: rgba(31, 41, 55, 1);
+}
+
+/* Add some animation styles to make the notification more noticeable */
+
+/* Add these styles at the end of the file: */
+@keyframes gentle-pulse {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s infinite ease-in-out;
+}
+
+/* Add a subtle bounce animation for the evaluation notification */
+@keyframes subtle-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.animate-subtle-bounce {
+  animation: subtle-bounce 2s infinite ease-in-out;
+}

@@ -1,0 +1,387 @@
+[
+  {
+    "id": "v1a2b3c4",
+    "question": "Explain how Vercel's Edge Network works. How does it compare to traditional CDN setups?",
+    "answer": "Vercel's Edge Network is a globally distributed infrastructure that serves static assets and dynamic responses as close to the user as possible. Unlike traditional CDNs that primarily cache static files, Vercel extends this by also running Edge Functions for dynamic content at the edge, reducing latency and improving Time to First Byte (TTFB). Combined with features like ISR, it offers fine-grained control over caching and revalidation, balancing speed and freshness.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v2d4e6f8",
+    "question": "What are the trade-offs between using Edge Functions and Serverless Functions on Vercel? When would you use each?",
+    "answer": "Edge Functions are optimized for low-latency, region-based execution and are ideal for lightweight tasks like authentication, geolocation, or personalization. They have faster cold starts but stricter limits on execution time and memory. Serverless Functions, on the other hand, are better for heavier workloads like database interactions or third-party API orchestration. Use Edge for real-time UX tweaks and Serverless for backend-heavy tasks.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v3g5h7i9",
+    "question": "How would you explain Incremental Static Regeneration (ISR) to a CTO evaluating site performance and content freshness?",
+    "answer": "ISR allows pages to be statically generated at build time and updated on demand after deployment, without a full rebuild. This means we get the performance of static pages with the flexibility of dynamic content — ideal for marketing or e-commerce sites where content changes frequently but speed is crucial.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v4j6k8l0",
+    "question": "A customer is migrating a large WordPress site to Vercel. What architectural considerations and Vercel features would you recommend?",
+    "answer": "I'd recommend separating content from presentation using a headless CMS like WordPress REST API or GraphQL layer, then using Next.js to statically generate pages with ISR for dynamic parts like blog posts. Vercel's preview deployments, image optimization, and edge caching would help replicate WordPress's flexibility with modern performance benefits. Edge Middleware could be used for personalization and redirects.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v5m7n9o1",
+    "question": "How does Vercel handle environment variables, and what are best practices when working with secrets across environments?",
+    "answer": "Vercel provides an Environment Variables UI under project settings, allowing you to set variables scoped to development, preview, or production. Best practice is to use secret names consistently, avoid committing them in source, and use separate keys for third-party services per environment. Access is runtime-only, so you can't leak secrets at build time unless explicitly exposed.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v6p8q0r2",
+    "question": "Describe how you would debug a cold start issue for a Serverless Function on Vercel. What metrics would you look at?",
+    "answer": "I'd start with Vercel's analytics to view invocation durations, cold start times, and memory usage. If cold starts are significant, I'd assess if the function could be moved to Edge or split into smaller units. I'd also reduce package size, optimize imports, and avoid heavy initialization outside the handler to shorten startup time.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v7s9t1u3",
+    "question": "Can you walk me through how Vercel handles CI/CD from Git push to production, including preview deployments?",
+    "answer": "Vercel integrates directly with GitHub, GitLab, or Bitbucket. Every push to a branch creates a unique preview deployment, complete with environment context and URLs, making collaboration easy. Merging to main triggers a production build. This workflow accelerates QA, enables stakeholder review, and ensures consistency across environments.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v8v0w2x4",
+    "question": "How would you help a customer reduce their Time to First Byte (TTFB) on a dynamic page hosted on Vercel?",
+    "answer": "I'd look at moving SSR pages to ISR or static generation where possible, and for dynamic SSR pages, implement Edge Functions to shift logic closer to the user. I'd audit the API response times and optimize payloads, enable compression, and ensure caching headers are correctly configured to reduce TTFB.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v9y1z3a5",
+    "question": "What limits should developers be aware of on Vercel's platform (e.g., cold start duration, memory limits, function duration)?",
+    "answer": "Serverless Functions have limits like 10s execution time (for Hobby), 1024MB memory, and ~50MB compressed package size. Edge Functions have stricter limits — 1MB response size, shorter execution time, and 128MB memory. Understanding these ensures you architect with scalability and performance in mind.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v10b2c4d6",
+    "question": "What happens under the hood when a user visits a statically generated page with ISR after the revalidation period has passed?",
+    "answer": "The cached (stale) version is served instantly while Vercel triggers a background regeneration of the page. Once the new version is built, it replaces the stale one for the next request — this is the 'stale-while-revalidate' strategy that balances performance and content freshness without blocking the request.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v11e3f5g7",
+    "question": "How does Vercel handle deployments?",
+    "answer": "Vercel uses Git-based continuous deployment. Every push to a Git branch triggers a build and deploys a preview or production version, depending on the branch, ensuring a seamless workflow for frontend teams.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v12h4i6j8",
+    "question": "What is the difference between preview deployments and production deployments?",
+    "answer": "Preview deployments are automatically created per pull request or branch, allowing stakeholders to review changes before they go live. Production deployments occur when merging into the main branch, serving the final user-facing version.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v13k5l7m9",
+    "question": "Can you explain how Vercel's Edge Network works?",
+    "answer": "Vercel distributes your content globally using an edge network of CDN nodes. When a request is made, it is served from the nearest node, reducing latency and improving load times, especially with caching and Edge Functions.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v14n6o8p0",
+    "question": "What are Edge Functions, and how do they differ from Serverless Functions?",
+    "answer": "Edge Functions run closer to the user at the CDN level with sub-millisecond cold starts, ideal for low-latency use cases like A/B testing and geolocation. Serverless Functions, on the other hand, run in regional data centers and are better suited for heavier backend logic.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "v15q7r9s1",
+    "question": "How does Vercel optimize performance for frontend applications?",
+    "answer": "Vercel automatically caches static assets, supports image optimization, applies smart CDN strategies, and integrates tightly with Next.js to analyze and optimize performance during the build.",
+    "category": "Vercel",
+    "icon": "server"
+  },
+  {
+    "id": "n1t8u0v2",
+    "question": "What's the difference between SSR, SSG, and ISR in Next.js, and when would you use each?",
+    "answer": "SSR (Server-Side Rendering) generates HTML on each request via fetch/async logic in a Server Component. It's ideal for highly dynamic, user-specific, or frequently changing data (e.g., dashboards, authenticated content). SSG (Static Site Generation) pre-renders pages at build time for maximum performance and is best for content that rarely changes (e.g., marketing pages). ISR (Incremental Static Regeneration) is a hybrid — pages are pre-rendered but updated after a revalidation time via revalidate in the route's generateStaticParams() or config. Great for content that needs periodic updates without full redeploys (e.g., blogs, product pages).",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n2w3x5y7",
+    "question": "How would you implement dynamic routing in Next.js? How does it differ between the App Router and Pages Router?",
+    "answer": "In the App Router, dynamic routes are created using folder names in square brackets, e.g. app/products/[id]/page.tsx. The route is file-based but component-driven and uses Server/Client Components. In the Pages Router, you'd do the same in the pages/ directory, but you'd use getStaticProps/getServerSideProps, and page navigation relied more heavily on client-side logic. The App Router also supports route segment configuration (generateStaticParams, revalidate, etc.) and nested layouts, which changes how state and layout persistence is managed.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n3z4a6b8",
+    "question": "Explain how React Server Components are used in Next.js and how they improve performance.",
+    "answer": "React Server Components (RSCs) allow you to run React code on the server without sending that logic to the client. This reduces JavaScript bundle size significantly since server-only logic (e.g., DB calls, heavy libraries) never reaches the browser. In Next.js App Router, all components are Server Components by default. You opt into client-side interactivity by adding 'use client' at the top of a file. This split encourages smarter bundling and faster page loads, especially for data-heavy apps.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n4c5d7e9",
+    "question": "How do Next.js Middleware and Vercel Edge Functions relate to each other? Can you give a use case?",
+    "answer": "Next.js Middleware runs at the edge before a request reaches your route handler. It's ideal for lightweight tasks like redirects, rewrites, A/B testing, geolocation, and auth token checks. Vercel Edge Functions are a superset that let you run more flexible, regionally-distributed server logic — essentially serverless functions but executed globally and with lower latency. Use case: Middleware could detect a country and redirect a user to the localized site. An Edge Function could then personalize content for that user by fetching geo-specific promotions.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n5f6g8h0",
+    "question": "Describe how Next.js handles API routes. How do those compare to Vercel's serverless functions?",
+    "answer": "API routes in Next.js (in pages/api for Pages Router or app/api for App Router) are automatically deployed as Vercel Serverless Functions. These routes are great for small backend logic co-located with frontend code (e.g., form handling, token exchange). Under the hood, Vercel provisions a Lambda-like function for each route. You can also create Edge API routes by using the export const runtime = 'edge' directive.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n6i7j9k1",
+    "question": "A customer complains about layout shifts on their Next.js app. What tools or techniques would you recommend to diagnose and fix it?",
+    "answer": "I'd use Lighthouse, Core Web Vitals (CLS) in Vercel Analytics, and Chrome DevTools to trace layout shifts. Common fixes include setting width and height on images (especially when using next/image), avoiding fonts that shift layout when they load, and using the new font-display: swap and next/font.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n7l8m0n2",
+    "question": "How would you manage authentication in a Next.js app deployed to Vercel?",
+    "answer": "For protected routes, I'd use Middleware to check auth cookies at the edge and redirect unauthenticated users before rendering. On the server side, React Server Components can safely fetch user data with access tokens via cookies() and headers() methods. For login, libraries like NextAuth.js or custom JWT-based auth work well. Store refresh tokens in HttpOnly cookies and validate on Edge Functions or API routes.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n8o9p1q3",
+    "question": "What are the benefits of using app/ directory over the traditional pages/ directory in Next.js?",
+    "answer": "The app/ directory supports React Server Components, nested layouts, streaming, and parallel routes, enabling more powerful composition and performance gains. It moves away from page-centric thinking toward component-driven architecture, enabling granular control over routing, loading states, and caching.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n9r0s2t4",
+    "question": "How does Next.js handle image optimization, and what advantages does it offer out of the box with Vercel?",
+    "answer": "Next.js provides the next/image component, which handles automatic resizing, format conversion (like WebP/AVIF), lazy loading, and responsive rendering. On Vercel, this is integrated seamlessly — images are optimized at the edge and cached globally, so users get fast, tailored image delivery without manual intervention.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n10u3v5w7",
+    "question": "You've just pushed a code update that broke production. What Vercel and Next.js features help you triage and roll back?",
+    "answer": "Vercel gives instant preview deployments per git branch/PR, so issues should ideally be caught before merging. If something goes wrong, I'd use Vercel's deployment history to instantly roll back to the last stable version. I'd also check Vercel Analytics, logs from functions, and monitor errors via tools like Sentry or Vercel's built-in error reporting.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n11x4y6z8",
+    "question": "How does Next.js handle static generation and server-side rendering?",
+    "answer": "Next.js supports both SSG and SSR through getStaticProps and getServerSideProps. You can mix them across pages to optimize for performance and freshness of data.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n12a5b7c9",
+    "question": "What is ISR, and how does it work in Next.js?",
+    "answer": "ISR allows statically generated pages to be updated at runtime without rebuilding the whole app. You set a revalidate interval to control how frequently a page is updated.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n13d6e8f0",
+    "question": "How does routing work in Next.js?",
+    "answer": "Next.js uses a file-based routing system where files in the pages/ directory automatically become routes. Dynamic routes can be created using bracket syntax like [id].tsx.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n14g7h9i1",
+    "question": "What are Middleware and how would you use them in Next.js?",
+    "answer": "Middleware run before a request is completed and can be used to redirect, rewrite, or set headers. They execute at the Edge, enabling logic like auth checks or geolocation before a page renders.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "n15j8k0l2",
+    "question": "What's the difference between client-side and server-side navigation in Next.js?",
+    "answer": "Client-side navigation is handled via the next/link component, enabling faster page transitions without a full page reload. Server-side navigation happens on a full page request.",
+    "category": "Nextjs",
+    "icon": "code"
+  },
+  {
+    "id": "r1m9n1o3",
+    "question": "What is the Virtual DOM and how does React use it?",
+    "answer": "The Virtual DOM is an in-memory representation of the real DOM. React uses it to batch and minimize actual DOM updates by diffing the virtual tree before committing changes, improving performance.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r2p4q6r8",
+    "question": "What are the key differences between functional and class components?",
+    "answer": "Functional components are simpler and use Hooks for state and side effects. Class components use lifecycle methods and this, but are now largely replaced by function components in modern React.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r3s5t7u9",
+    "question": "Explain how React's useEffect hook works.",
+    "answer": "useEffect runs side effects after render. You can control when it runs by passing dependencies—no deps ([]) runs once on mount, specific values trigger on change, and cleanup functions run on unmount.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r4v0w2x4",
+    "question": "What is prop drilling and how can you avoid it?",
+    "answer": "Prop drilling is passing props through intermediate components that don't need them. You can avoid it with context, custom hooks, or state management libraries like Zustand, Redux, or Jotai.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r5y3z5a7",
+    "question": "What is React Context and when should you use it?",
+    "answer": "Context provides a way to pass data through the component tree without prop drilling. It's great for global data like themes, user state, or locale—but not for frequently changing state.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r6b6c8d0",
+    "question": "How do keys help React in rendering lists?",
+    "answer": "Keys help React identify which items have changed, been added, or removed. They should be stable and unique (not index) to ensure efficient reconciliation and avoid UI bugs.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r7e7f9g1",
+    "question": "What are Controlled vs Uncontrolled Components?",
+    "answer": "Controlled components get their value from React state and use onChange to update it. Uncontrolled components use refs to access the DOM directly, which is more imperative and less common in React apps.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r8h8i0j2",
+    "question": "What is the difference between useMemo and useCallback?",
+    "answer": "useMemo memoizes a computed value, while useCallback memoizes a function. Both prevent unnecessary recalculations or rerenders when dependencies haven't changed.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r9k9l1m3",
+    "question": "What are React Server Components (RSCs)?",
+    "answer": "RSCs run on the server and don't ship any JS to the client. They're designed for rendering async-heavy or data-fetching logic server-side while preserving interactivity in Client Components.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r10n0o2p4",
+    "question": "How do Server and Client Components interoperate in modern React/Next.js?",
+    "answer": "Server Components can render Client Components but not the other way around. You use the 'use client' directive at the top of a file to mark a component as client-only, enabling interactivity.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r11q1r3s5",
+    "question": "What are the benefits of using React Server Components?",
+    "answer": "RSCs improve performance by reducing the JS bundle size and shifting heavy rendering to the server. They also allow for direct data fetching in the component without API calls from the client.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r12t2u4v6",
+    "question": "How does Suspense work in React?",
+    "answer": "Suspense lets you declaratively handle async operations like data loading or lazy loading. You wrap components in <Suspense> and show a fallback UI while waiting for content to resolve.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r13w3x5y7",
+    "question": "What is a custom hook and why would you create one?",
+    "answer": "A custom hook is a reusable function that uses other hooks. It abstracts shared logic across components (e.g., fetching, form handling, localStorage) to keep your components cleaner.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r14z4a6b8",
+    "question": "How would you optimize performance in a React app?",
+    "answer": "Techniques include memoization (React.memo, useMemo, useCallback), code-splitting via React.lazy, avoiding unnecessary re-renders, and using Server Components where appropriate.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "r15c5d7e9",
+    "question": "How does React handle reactivity compared to frameworks like Vue or Svelte?",
+    "answer": "React relies on manual dependency tracking via hooks and re-renders entire components on state change. Others like Vue/Svelte use reactive primitives and fine-grained reactivity out of the box.",
+    "category": "React",
+    "icon": "component"
+  },
+  {
+    "id": "b1f6g8h0",
+    "question": "What is the business value of Faster Time to Market with Vercel?",
+    "answer": "Instant preview deployments and simplified CI/CD pipelines accelerate development.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b2i7j9k1",
+    "question": "How does Vercel contribute to Improved Performance from a business perspective?",
+    "answer": "Global edge network ensures lightning-fast user experiences.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b3l8m0n2",
+    "question": "What is the business advantage of Scalability Without DevOps on Vercel?",
+    "answer": "Auto-scaling serverless architecture removes infrastructure headaches.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b4o9p1q3",
+    "question": "How does Vercel help with Reduced Engineering Overhead?",
+    "answer": "Developers focus on product, not operations.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b5r0s2t4",
+    "question": "What is the connection between Vercel and Increased Conversion Rates?",
+    "answer": "Faster load times = better SEO and improved user engagement.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b6u3v5w7",
+    "question": "How is Vercel Secure by Design?",
+    "answer": "Built-in HTTPS, environment isolation, and minimal attack surface.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b7x4y6z8",
+    "question": "Why is Vercel Optimized for Frontend Teams?",
+    "answer": "Deep Next.js integration enables full-stack capabilities with frontend control.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b8a5b7c9",
+    "question": "How does Vercel enable Better Collaboration?",
+    "answer": "Preview URLs and Git workflows empower teams to iterate quickly.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b9d6e8f0",
+    "question": "What are the benefits of Integrated Analytics with Vercel?",
+    "answer": "First-party insights into performance and user metrics.",
+    "category": "Business",
+    "icon": "briefcase"
+  },
+  {
+    "id": "b10g7h9i1",
+    "question": "What makes Vercel Enterprise-ready?",
+    "answer": "Role-based access, audit logs, SLAs, and dedicated support options.",
+    "category": "Business",
+    "icon": "briefcase"
+  }
+]
